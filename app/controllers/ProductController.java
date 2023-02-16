@@ -21,7 +21,7 @@ public class ProductController {
         productService.addProduct(request);
         return ok("Data inserted");
     }
-    public Result getProduct (Http.Request request) throws IOException {
-        return ok(productService.getProduct(request));
+    public Result getProductById(Integer productId) throws IOException {
+        return  ok(productService.getProductById(productId).toString());
     }
 }

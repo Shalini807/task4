@@ -37,16 +37,13 @@ public class ProductService {
         esConnection.getRestHighLevelClient().index(indexRequest1, RequestOptions.DEFAULT);
         return productId;
     }
-    public String getProduct(Http.Request request) throws IOException {
-        JsonNode body = request.body().asJson();
-        String index = body.get("index").asText();
-        String type = body.get("type").asText();
-        String id = body.get("id").asText();
-        GetRequest getRequest = new GetRequest(index, type, id);
-        GetResponse response = esConnection.getRestHighLevelClient().get(getRequest, RequestOptions.DEFAULT);
+    public String getProductById(Integer productId) throws IOException {
+        GetRequest request = new GetRequest("product", "_doc", String.valueOf(productId));
+        GetResponse response = esConnection.getRestHighLevelClient().get(request, RequestOptions.DEFAULT);
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(response.getSource());
-        return jsonString;
+        String jsonobject = objectMapper.writeValueAsString(response.getSource());
+        return jsonobject;
     }
+
 
 }
